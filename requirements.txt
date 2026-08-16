@@ -1,0 +1,5 @@
+crewai[google-genai]
+firecrawl-py>=2.0
+python-dotenv
+pydantic
+flask

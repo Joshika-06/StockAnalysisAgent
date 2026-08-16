@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ledger — AI Stock Analysis Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="tape" aria-hidden="true">
+    <div class="tape-track">
+      <span>RESEARCHER → SCRAPES LIVE DATA</span><span>·</span>
+      <span>ANALYST → SYNTHESIZES VERDICT</span><span>·</span>
+      <span>RESEARCHER → SCRAPES LIVE DATA</span><span>·</span>
+      <span>ANALYST → SYNTHESIZES VERDICT</span><span>·</span>
+      <span>RESEARCHER → SCRAPES LIVE DATA</span><span>·</span>
+      <span>ANALYST → SYNTHESIZES VERDICT</span><span>·</span>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <header class="masthead">
+      <div class="brand">
+        <span class="brand-mark">§</span>
+        <div>
+          <h1>Ledger</h1>
+          <p class="tagline">Two agents. One verdict.</p>
+        </div>
+      </div>
+      <p class="masthead-note">Researcher pulls live web data via Firecrawl · Analyst turns it into a call</p>
+    </header>
+
+    <section class="console" aria-label="Query">
+      <label class="console-label" for="ticker-input">STOCK /</label>
+      <input
+        id="ticker-input"
+        type="text"
+        placeholder="e.g. TCS, INFY, AAPL, Reliance"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button id="analyze-btn" type="button">
+        <span class="btn-label">Analyze</span>
+      </button>
+    </section>
+
+    <p id="error-box" class="error-box hidden" role="alert"></p>
+
+    <section id="loading" class="loading hidden" aria-live="polite">
+      <div class="loading-rows">
+        <div class="loading-row"><span class="dot"></span> Researcher is scraping the web…</div>
+        <div class="loading-row"><span class="dot"></span> Analyst is writing the verdict…</div>
+      </div>
+      <p class="loading-note">This runs two live LLM agents plus a web search — usually 30–90 seconds.</p>
+    </section>
+
+    <section id="report" class="report hidden">
+
+      <div class="report-top">
+        <div class="report-id">
+          <span class="eyebrow">TICKER</span>
+          <h2 id="report-ticker">—</h2>
+        </div>
+
+        <div class="gauge-wrap">
+          <svg id="gauge" viewBox="0 0 200 120" aria-hidden="true">
+            <path d="M 20 110 A 80 80 0 0 1 180 110" class="gauge-track" />
+            <path id="gauge-fill" d="M 20 110 A 80 80 0 0 1 180 110" class="gauge-fill" />
+            <line id="gauge-needle" x1="100" y1="110" x2="100" y2="40" class="gauge-needle" />
+            <circle cx="100" cy="110" r="6" class="gauge-hub" />
+          </svg>
+          <span id="sentiment-label" class="sentiment-label">—</span>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <span class="eyebrow">SUMMARY</span>
+        <p id="report-summary">—</p>
+      </div>
+
+      <button id="toggle-full" type="button" class="toggle-full" aria-expanded="false">
+        <span>View full report</span>
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+
+      <div id="full-report-wrap" class="full-report-wrap">
+        <div id="full-report" class="full-report"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
